@@ -1,0 +1,18 @@
+.home-page {
+    color: black;
+    background-color: #FFFFFF;
+    opacity: 0.7;
+}
+
+.lead {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+@media (min-width: 768px) {
+    .lead {
+        font-size: 21px;
+    }
+}
+
