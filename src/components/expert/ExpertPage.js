@@ -7,7 +7,6 @@ import ExpertAvatar from './ExpertAvatar';
 import {API_HOST_FILE_URL} from '../../config';
 import NewQuestion from '../question/NewQuestion';
 
-
 class ExpertPage extends React.Component {
     componentWillMount() {
         this.props.loadExpertAction(this.props.match.params.expert_id);
@@ -18,11 +17,10 @@ class ExpertPage extends React.Component {
     }
 
     render() {
-
         let avatarUrl = false;
 
         if(this.props.expert.id != null){
-            this.props.expert.attachments.map(function (attachment) {
+            this.props.expert.attachments.map((attachment) => {
                 if(attachment.is_avatar){
                     avatarUrl = API_HOST_FILE_URL+attachment.url_path;
                 }

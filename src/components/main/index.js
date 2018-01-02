@@ -5,10 +5,29 @@ import {
     alertActions,
 } from '../../actions/alert';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import {history} from '../../store';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/flip.css';
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        history.listen((location, action) => {
+            this.props.clear();
+        });
+    }
 
     render() {
+        const {alert} = this.props;
+        if (Object.keys(alert).length !== 0) {
+            Alert[alert.type](alert.message, {
+                position: 'bottom-right',
+                effect: 'flip'
+            });
+        }
         return (
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -65,6 +84,9 @@ class App extends React.Component {
                         </div>
                     </div>
                 </footer>
+                <div>
+                    <Alert stack={{limit: 3}} timeout={3000}/>
+                </div>
             </div>
         );
     }
@@ -79,9 +101,7 @@ const mapStateToProps = (store) => {
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        success: alertActions.success.bind(null, dispatch),
-        error: alertActions.success.bind(null, dispatch),
-        clear: alertActions.success.bind(null, dispatch),
+        clear: alertActions.clear.bind(null, dispatch)
     }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -6,16 +6,9 @@ import {
 import {connect} from 'react-redux';
 
 class LoginPage extends React.Component {
-
-    constructor(props){
-        super(props);
-
-        this.login = this.login.bind(this);
-    }
-
-    login(data){
+    login = (data) => {
         this.props.login(data);
-    }
+    };
 
     render() {
         return (

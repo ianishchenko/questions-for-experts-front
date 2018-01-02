@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router";
 import {
     categoryActions,
 } from '../../actions/category';
@@ -7,10 +6,6 @@ import {connect} from 'react-redux';
 import CategoriesList from './CategoriesList';
 
 class CategoriesBlock extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentWillMount() {
         this.props.loadCategoriesAction();
     }

@@ -54,11 +54,11 @@ function register(dispatch, user) {
                 () => {
                     dispatch(success());
                     history.push('/login');
-                    dispatch(alertActions.success('Registration successful'));
+                    alertActions.success(dispatch, 'Registration successful');
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    alertActions.error(dispatch, error);
                 }
             );
     })(dispatch);

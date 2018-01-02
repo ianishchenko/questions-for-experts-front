@@ -23,8 +23,6 @@ export default class RegistrationForm extends React.Component {
             email: '',
             password: ''
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
     handleSubmit = (event) => {

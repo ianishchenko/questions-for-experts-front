@@ -10,14 +10,26 @@ export const alertActions = {
     clear
 };
 
-function success(message) {
-    return { type: Types.SUCCESS, message };
+function success(dispatch, message) {
+    return ((dispatch) => {
+        dispatch({
+            type: Types.SUCCESS, message
+        });
+    })(dispatch);
 }
 
-function error(message) {
-    return { type: Types.ERROR, message };
+function error(dispatch, message) {
+    return ((dispatch) => {
+        dispatch({
+            type: Types.ERROR, message
+        });
+    })(dispatch);
 }
 
-function clear() {
-    return { type: Types.CLEAR };
+function clear(dispatch) {
+    return ((dispatch) => {
+        dispatch({
+            type: Types.CLEAR
+        });
+    })(dispatch);
 }

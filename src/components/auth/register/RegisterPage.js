@@ -6,15 +6,9 @@ import {
 import {connect} from 'react-redux';
 
 class RegisterPage extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.sendRegistrationData = this.sendRegistrationData.bind(this)
-    }
-
-    sendRegistrationData(data) {
+    sendRegistrationData = (data) => {
         this.props.register(data);
-    }
+    };
 
     render() {
         return (

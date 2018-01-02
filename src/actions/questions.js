@@ -8,11 +8,11 @@ export const questionActions = {
     addNewQuestionAction
 };
 
-const addNewQuestionAction = (dispatch, question) => {
+function addNewQuestionAction(dispatch, question) {
     return dispatch => {
         dispatch({
             type: Type.ADDED_NEW_QUESTION,
             question: question
         });
     }
-};
+}

@@ -31,5 +31,5 @@ function loadCategoriesAction(dispatch){
             }, (err) => dispatch({
                 type: Type.CATEGORIES_LOADED_FROM_API_ERROR
             }))
-    })(dispatch)
+    })(dispatch);
 }
