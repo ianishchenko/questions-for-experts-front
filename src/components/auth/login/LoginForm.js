@@ -10,15 +10,10 @@ const required = (value) => {
 };
 
 export default class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+    state = {
+        email: '',
+        password: ''
+    };
 
     handleSubmit = (event) => {
         event.preventDefault();

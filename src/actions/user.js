@@ -30,7 +30,7 @@ function login(dispatch, {email, password}) {
                 },
                 error => {
                     dispatch(failure(error));
-                    dispatch(alertActions.error(error));
+                    alertActions.error(dispatch, 'Fail login');
                 }
             );
     })(dispatch);
@@ -53,8 +53,8 @@ function register(dispatch, user) {
             .then(
                 () => {
                     dispatch(success());
-                    history.push('/login');
                     alertActions.success(dispatch, 'Registration successful');
+                    history.push('/login');
                 },
                 error => {
                     dispatch(failure(error));

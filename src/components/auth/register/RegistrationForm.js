@@ -17,13 +17,10 @@ const email = (value) => {
 };
 
 export default class RegistrationForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: ''
-        };
-    }
+    state = {
+        email: '',
+        password: ''
+    };
 
     handleSubmit = (event) => {
         event.preventDefault();

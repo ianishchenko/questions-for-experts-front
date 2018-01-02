@@ -17,6 +17,9 @@ function login(email, password) {
 
     return fetch(LOGIN_URL, requestOptions)
         .then(response => {
+            if(response.status == 401){
+                return Promise.reject(false)
+            }
             return response.json();
         })
         .then(user => {

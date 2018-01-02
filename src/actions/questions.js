@@ -1,3 +1,5 @@
+import { alertActions } from './alert';
+
 let Type = {
     ADDED_NEW_QUESTION: 'ADDED_NEW_QUESTION'
 };
@@ -9,10 +11,11 @@ export const questionActions = {
 };
 
 function addNewQuestionAction(dispatch, question) {
-    return dispatch => {
+    return (dispatch => {
         dispatch({
             type: Type.ADDED_NEW_QUESTION,
             question: question
         });
-    }
+        alertActions.success(dispatch, 'Question added successfully');
+    })(dispatch);
 }

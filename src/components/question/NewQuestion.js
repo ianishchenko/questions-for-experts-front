@@ -3,27 +3,26 @@ import {connect} from 'react-redux';
 import Modal from '../modal/Modal';
 import QuestionForm from '../question/QuestionForm';
 import AxiosHelper from '../../helpers/AxiosHelper';
+import {questionActions} from '../../actions/questions';
+import {alertActions} from '../../actions/alert';
 
 class NewQuestion extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {questionModalIsOpen: false, questionText: ''};
-        this.toggleModal = this.toggleModal.bind(this);
-        this.handleFormData = this.handleFormData.bind(this);
-        this.sendQuestion = this.sendQuestion.bind(this);
-    }
+    state = {
+        questionModalIsOpen: false,
+        questionText: ''
+    };
 
-    toggleModal() {
+    toggleModal = () => {
         this.setState((prevState, props) => ({
             questionModalIsOpen: !prevState.questionModalIsOpen
         }));
-    }
+    };
 
-    handleFormData(text) {
+    handleFormData = (text) => {
         this.setState(text)
-    }
+    };
 
-    sendQuestion() {
+    sendQuestion = () => {
         const axios = new AxiosHelper();
         const data = {
             text: this.state.questionText,
@@ -33,11 +32,13 @@ class NewQuestion extends React.Component {
         return axios.setUrl(`/questions`).setMethod('POST').setData(data)
             .request()
             .then((result) => {
+                this.props.addNewQuestion(result);
                 this.toggleModal();
             }, (err) => {
+                this.props.failAdding(err);
                 this.toggleModal();
             });
-    }
+    };
 
     render() {
         return (
@@ -52,10 +53,10 @@ class NewQuestion extends React.Component {
     }
 }
 
-const mapStateToProps = (store) => {
-    return {};
-};
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {}
+    return {
+        addNewQuestion: questionActions.addNewQuestionAction.bind(null, dispatch),
+        failAdding: alertActions.error.bind(null, dispatch)
+    }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);
+export default connect(null, mapDispatchToProps)(NewQuestion);

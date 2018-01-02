@@ -1,18 +1,14 @@
 import React from "react";
 
 export default class QuestionForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            question: ''
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
+    state = {
+        question: ''
+    };
 
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({question: event.target.value});
         this.props.handleFormData({questionText: event.target.value});
-    }
+    };
 
     render() {
         return (

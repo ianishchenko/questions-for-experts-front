@@ -12,12 +12,8 @@ import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/flip.css';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        history.listen((location, action) => {
-            this.props.clear();
-        });
+    shouldComponentUpdate(nextProps) {
+        return nextProps.alert != this.props.alert;
     }
 
     render() {
@@ -28,6 +24,9 @@ class App extends React.Component {
                 effect: 'flip'
             });
         }
+        history.listen((location, action) => {
+            this.props.clear();
+        });
         return (
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
