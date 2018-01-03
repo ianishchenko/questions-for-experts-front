@@ -1,4 +1,4 @@
-import {REGISTER_URL, LOGIN_URL} from '../config';
+import {REGISTER_URL, LOGIN_URL, LOGOUT_URL} from '../config';
 
 export const userService = {
     login,
@@ -17,7 +17,7 @@ function login(email, password) {
 
     return fetch(LOGIN_URL, requestOptions)
         .then(response => {
-            if(response.status == 401){
+            if(response.status === 401){
                 return Promise.reject(false)
             }
             return response.json();
@@ -33,6 +33,7 @@ function login(email, password) {
 
 function logout() {
     localStorage.removeItem('user');
+    return fetch(LOGOUT_URL);
 }
 
 function register(user) {
@@ -46,7 +47,7 @@ function register(user) {
 }
 
 function getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user.user'));
+    return JSON.parse(localStorage.getItem('user'))['user'];
 }
 
 function getIsAuth() {

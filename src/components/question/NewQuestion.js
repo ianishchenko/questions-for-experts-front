@@ -27,7 +27,8 @@ class NewQuestion extends React.Component {
         const data = {
             text: this.state.questionText,
             category_id: this.props.category,
-            expert_id: this.props.expert_id
+            expert_id: this.props.expert_id,
+            author_id: this.props.author_id
         };
         return axios.setUrl(`/questions`).setMethod('POST').setData(data)
             .request()
@@ -53,10 +54,17 @@ class NewQuestion extends React.Component {
     }
 }
 
+const mapStateToProps = (store) => {
+    return {
+        author_id: store.user.user.id
+    };
+};
+
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         addNewQuestion: questionActions.addNewQuestionAction.bind(null, dispatch),
         failAdding: alertActions.error.bind(null, dispatch)
     }
 };
-export default connect(null, mapDispatchToProps)(NewQuestion);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion);
