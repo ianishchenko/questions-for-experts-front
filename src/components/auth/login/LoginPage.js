@@ -2,7 +2,7 @@ import React from "react";
 import LoginForm from './LoginForm';
 import {
     userActions,
-} from '../../../actions/user';
+} from 'Actions/user';
 import {connect} from 'react-redux';
 
 class LoginPage extends React.Component {

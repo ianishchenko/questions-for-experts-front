@@ -1,15 +1,16 @@
 import React from 'react';
 import {Link, Switch} from 'react-router-dom';
 import Routes from './../../routes';
-import {
-    alertActions,
-} from '../../actions/alert';
+import {alertActions} from 'Actions/alert';
+import {userActions} from 'Actions/user';
+import {loading} from 'Actions/loading';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {history} from '../../store';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/flip.css';
+import {userService} from "Services/userService";
 
 class App extends React.Component {
     shouldComponentUpdate(nextProps) {
@@ -17,7 +18,12 @@ class App extends React.Component {
     }
 
     render() {
-        const {alert} = this.props;
+        let isAuth = false;
+        if (userService.getIsAuth()) {
+            this.props.setUser(userService.getCurrentUser());
+            isAuth = true;
+        }
+        const {alert, loading} = this.props;
         if (Object.keys(alert).length !== 0) {
             Alert[alert.type](alert.message, {
                 position: 'bottom-right',
@@ -33,13 +39,21 @@ class App extends React.Component {
                     <div className="container-fluid">
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav">
-                                <li><Link to="/">Home</Link></li>
-                                <li><Link to="/questions">My questions</Link></li>
+                                <li key="home"><Link key="home" to="/">Home</Link></li>
+                                <li key="questions"><Link key="questions" to="/questions">My questions</Link></li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
-                                <li><Link to="/registration"><span className="glyphicon glyphicon-user"/> Sign Up</Link>
-                                </li>
-                                <li><Link to="/login"><span className="glyphicon glyphicon-log-in"/> Login</Link></li>
+                                {isAuth ? (
+                                    <li><Link to="/logout">Logout</Link></li>
+                                ) : ([
+                                    <li key="registration">
+                                        <Link to="/registration"><span className="glyphicon glyphicon-user"/>
+                                            Sign Up
+                                        </Link>
+                                    </li>,
+                                    <li key="login"><Link to="/login"><span className="glyphicon glyphicon-log-in"/>Login</Link>
+                                    </li>
+                                ])}
                             </ul>
                         </div>
                     </div>
@@ -57,7 +71,7 @@ class App extends React.Component {
                         </div>
                     </div>
                 </header>
-
+                {loading.in_progress === true && <div className="loading">Loading...</div>}
                 <main>
                     <Switch>
                         {Routes}
@@ -93,14 +107,17 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (store) => {
-    const {alert} = store;
+    const {alert, loading} = store;
     return {
-        alert
+        alert,
+        loading
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        clear: alertActions.clear.bind(null, dispatch)
+        clear: alertActions.clear.bind(null, dispatch),
+        setUser: userActions.setUser.bind(null, dispatch),
+
     }
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -1,11 +1,15 @@
 import React from "react";
 import {
     questionActions,
-} from '../../actions/questions';
+} from 'Actions/questions';
+import {
+    alertActions
+} from 'Actions/alert';
 import {connect} from 'react-redux';
-import QuestionPreview from '../question/QuestionPreview';
-import NoMatchComponent from '../errors/NoMatchComponent';
+import QuestionPreview from 'Components/question/QuestionPreview';
+import NoMatchComponent from 'Components/errors/NoMatchComponent';
 import AnswerForm from './AnswerForm';
+import AxiosHelper from 'Helpers/AxiosHelper';
 
 class MakeAnswerPage extends React.Component {
     componentWillMount() {
@@ -13,7 +17,21 @@ class MakeAnswerPage extends React.Component {
     }
 
     submitAnswer = (data) => {
-        console.log(data);
+        const axios = new AxiosHelper();
+        const submittedData = {
+            text: data,
+            question_id: this.props.questions.id
+        };
+        return axios.setUrl(`/answers`).setMethod('POST').setData(submittedData)
+            .request()
+            .then((result) => {
+                this.props.successAnswer('Your answer was sent!');
+                this.props.history.replace({
+                    pathname: '/'
+                });
+            }, (err) => {
+
+            });
     };
 
     render() {
@@ -34,15 +52,19 @@ class MakeAnswerPage extends React.Component {
 }
 
 const mapStateToProps = (store) => {
+    const {questions} = store;
+
     return {
-        questions: store.questions.questions,
-        loading: store.questions.questions_loaded_from_api_in_process,
-        errorFetching: store.questions.questions_loaded_from_api_error
+        questions: questions.questions,
+        loading: questions.questions_loaded_from_api_in_process,
+        errorFetching: questions.questions_loaded_from_api_error,
+
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        loadQuestion: questionActions.loadUserQuestionByHashAction.bind(null, dispatch)
+        loadQuestion: questionActions.loadUserQuestionByHashAction.bind(null, dispatch),
+        successAnswer: alertActions.success.bind(null, dispatch)
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MakeAnswerPage);

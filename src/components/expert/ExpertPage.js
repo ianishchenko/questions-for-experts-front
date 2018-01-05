@@ -1,12 +1,14 @@
 import React from "react";
 import {
     expertActions,
-} from '../../actions/expert';
+} from 'Actions/expert';
 import {connect} from 'react-redux';
 import ExpertAvatar from './ExpertAvatar';
 import {API_HOST_FILE_URL} from '../../config';
-import NewQuestion from '../question/NewQuestion';
+import NewQuestion from 'Components/question/NewQuestion';
+import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 
+@authenticatedPageDecorator()
 class ExpertPage extends React.Component {
     componentWillMount() {
         this.props.loadExpertAction(this.props.match.params.expert_id);

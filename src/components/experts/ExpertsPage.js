@@ -1,11 +1,13 @@
 import React from "react";
 import {
     expertsActions,
-} from '../../actions/experts';
+} from 'Actions/experts';
 import {connect} from 'react-redux';
 import ExpertsList from './ExpertsList';
 import FiltersBlock from './FiltersBlock';
+import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 
+@authenticatedPageDecorator()
 class ExpertsPage extends React.Component {
     componentWillMount() {
         this.props.loadExpertsAction(this.props.match.params.category_id);

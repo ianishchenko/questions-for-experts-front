@@ -1,4 +1,4 @@
-import Type from '../actions/questions';
+import Type from 'Actions/questions';
 
 const initialState = {
     questions: [],

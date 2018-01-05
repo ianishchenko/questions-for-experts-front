@@ -1,4 +1,4 @@
-import Type from '../actions/category';
+import Type from 'Actions/category';
 
 const initialState = {
     categories: [],

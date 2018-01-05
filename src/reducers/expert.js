@@ -1,4 +1,4 @@
-import Type from '../actions/expert';
+import Type from 'Actions/expert';
 
 const initialState = {
     expert: {

@@ -15,6 +15,7 @@ export  const Types = {
 export const userActions = {
     login,
     logout,
+    setUser,
     register
 };
 
@@ -66,4 +67,12 @@ function register(dispatch, user) {
     function request(user) { return { type: Types.REGISTER_REQUEST, user } }
     function success(user) { return { type: Types.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: Types.REGISTER_FAILURE, error } }
+}
+
+function setUser(dispatch, user) {
+    return ((dispatch) => {
+        dispatch(success(user));
+    })(dispatch);
+
+    function success(user) { return { type: Types.LOGIN_SUCCESS, user } }
 }

@@ -1,4 +1,4 @@
-import { Types } from '../actions/alert';
+import { Types } from 'Actions/alert';
 
 export default function alert(state = {}, action) {
     switch (action.type) {

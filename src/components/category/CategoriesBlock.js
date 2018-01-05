@@ -1,7 +1,7 @@
 import React from "react";
 import {
     categoryActions,
-} from '../../actions/category';
+} from 'Actions/category';
 import {connect} from 'react-redux';
 import CategoriesList from './CategoriesList';
 

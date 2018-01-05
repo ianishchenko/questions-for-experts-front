@@ -1,9 +1,10 @@
-import { Types } from '../actions/user';
+import { Types } from 'Actions/user';
 
 const initialState = {
     user: null,
     user_from_api_in_process: false,
-    user_from_api_error: false
+    user_from_api_error: false,
+    isLoggedIn: false
 };
 
 export default function user(state = initialState, action) {
@@ -12,6 +13,7 @@ export default function user(state = initialState, action) {
             return {
                 ...state,
                 user: action.user,
+                isLoggedIn: true,
                 user_from_api_error: false,
                 user_from_api_in_process: false
             };
@@ -25,7 +27,8 @@ export default function user(state = initialState, action) {
             return {
                 ...state,
                 user_from_api_in_process: false,
-                user_from_api_error: true
+                user_from_api_error: true,
+                isLoggedIn: false
 
             };
         default:

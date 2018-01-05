@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
-import Modal from '../modal/Modal';
-import QuestionForm from '../question/QuestionForm';
-import AxiosHelper from '../../helpers/AxiosHelper';
-import {questionActions} from '../../actions/questions';
-import {alertActions} from '../../actions/alert';
+import Modal from 'Components/modal/Modal';
+import QuestionForm from 'Components/question/QuestionForm';
+import AxiosHelper from 'Helpers/AxiosHelper';
+import {questionActions} from 'Actions/questions';
+import {alertActions} from 'Actions/alert';
 
 class NewQuestion extends React.Component {
     state = {
@@ -33,7 +33,7 @@ class NewQuestion extends React.Component {
         return axios.setUrl(`/questions`).setMethod('POST').setData(data)
             .request()
             .then((result) => {
-                this.props.addNewQuestion(result);
+                this.props.addNewQuestion(result.data);
                 this.toggleModal();
             }, (err) => {
                 this.props.failAdding(err);

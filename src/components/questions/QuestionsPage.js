@@ -1,12 +1,14 @@
-import React from "react";
+import React,{PureComponent} from "react";
 import {
     questionActions,
-} from '../../actions/questions';
+} from 'Actions/questions';
 import {connect} from 'react-redux';
-import {userService} from '../../services/userService';
+import {userService} from 'Services/userService';
 import QuestionsList from './QuestionsList';
+import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 
-class QuestionsPage extends React.Component {
+@authenticatedPageDecorator()
+class QuestionsPage extends PureComponent {
 
     componentWillMount(){
         this.props.loadQuestions(userService.getCurrentUser()['id']);

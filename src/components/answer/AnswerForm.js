@@ -1,6 +1,6 @@
-import React from "react";
+import React, {PureComponent} from "react";
 
-export default class AnswerForm extends React.Component {
+export default class AnswerForm extends PureComponent {
     state = {
         answer: ''
     };

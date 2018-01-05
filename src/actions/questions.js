@@ -22,7 +22,7 @@ function addNewQuestionAction(dispatch, question) {
             type: Type.ADDED_NEW_QUESTION,
             question: question
         });
-        alertActions.success(dispatch, 'Question added successfully');
+        alertActions.success(dispatch, 'Question was added successfully');
     })(dispatch);
 }
 
