@@ -1,15 +1,32 @@
 import React, {PureComponent} from "react";
 import QuestionPreview from 'Components/question/QuestionPreview';
+import AnswersList from 'Components/answer/AnswersList';
+import PropTypes from 'prop-types';
 
 export default class QuestionsList extends PureComponent {
+
+    static propTypes = {
+        questions: PropTypes.array.isRequired
+    };
+
     render() {
-        if (this.props.length === 0) {
+        const {questions} = this.props;
+        if (questions.length === 0) {
             return <div>Questions list is empty</div>;
         }
         return (
             <ul>
-                {this.props.questions.map(question => {
-                    return <QuestionPreview key={question.id} question={question}/>
+                {questions.map(question => {
+                    return (
+                        <div key={question.id}>
+                            <h2>Question</h2>
+                            <QuestionPreview question={question}/>
+                            <h3 key="answer-header">Answer</h3>
+                            <AnswersList answers={question.answers}/>
+                            <hr/>
+                            <br/>
+                        </div>
+                    )
                 })}
             </ul>
         );

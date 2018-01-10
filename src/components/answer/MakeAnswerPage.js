@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {
     questionActions,
 } from 'Actions/questions';
@@ -10,8 +10,18 @@ import QuestionPreview from 'Components/question/QuestionPreview';
 import NoMatchComponent from 'Components/errors/NoMatchComponent';
 import AnswerForm from './AnswerForm';
 import AxiosHelper from 'Helpers/AxiosHelper';
+import PropTypes from 'prop-types';
 
-class MakeAnswerPage extends React.Component {
+class MakeAnswerPage extends Component {
+
+    static propTypes = {
+        loadQuestion: PropTypes.func,
+        successAnswer: PropTypes.func,
+        questions: PropTypes.array,
+        loading: PropTypes.bool,
+        errorFetching: PropTypes.bool
+    };
+
     componentWillMount() {
         this.props.loadQuestion(this.props.match.params.hash);
     }
@@ -26,21 +36,24 @@ class MakeAnswerPage extends React.Component {
             .request()
             .then((result) => {
                 this.props.successAnswer('Your answer was sent!');
-                this.props.history.replace({
-                    pathname: '/'
-                });
+                setTimeout(() => {
+                    this.props.history.replace({
+                        pathname: '/'
+                    });
+                }, 2000);
             }, (err) => {
 
             });
     };
 
     render() {
-        const question = this.props.questions;
+        const {loading, question} = this.props;
         if (question === undefined) {
             return <NoMatchComponent/>
         }
         return (
-            <div className="text-center">
+            <div className="page container text-center">
+                {loading === true && <div className="loading">Loading...</div>}
                 <div className="h1">Question is:</div>
                 <QuestionPreview question={question}/>
                 <div className="col-md-push-4 col-md-4">

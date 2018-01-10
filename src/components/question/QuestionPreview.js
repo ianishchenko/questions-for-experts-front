@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function (props) {
     return (
-        <div>
+        <div className="row">
             {props.question.text}
         </div>
     );

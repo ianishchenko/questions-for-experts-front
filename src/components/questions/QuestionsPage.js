@@ -1,4 +1,4 @@
-import React,{PureComponent} from "react";
+import React, {PureComponent} from "react";
 import {
     questionActions,
 } from 'Actions/questions';
@@ -6,18 +6,27 @@ import {connect} from 'react-redux';
 import {userService} from 'Services/userService';
 import QuestionsList from './QuestionsList';
 import authenticatedPageDecorator from 'Decorators/authenticatedPage';
+import PropTypes from 'prop-types';
 
 @authenticatedPageDecorator()
 class QuestionsPage extends PureComponent {
 
-    componentWillMount(){
+    static propTypes = {
+        loadQuestions: PropTypes.func,
+        questions: PropTypes.array,
+        loading: PropTypes.bool,
+        errorFetching: PropTypes.bool
+    };
+
+    componentWillMount() {
         this.props.loadQuestions(userService.getCurrentUser()['id']);
     }
 
     render() {
-        const questions = this.props.questions;
+        const {questions, loading} = this.props;
         return (
-            <div className="text-center">
+            <div className="page container text-left">
+                {loading === true && <div className="loading">Loading...</div>}
                 <QuestionsList questions={questions}/>
             </div>
         );
@@ -25,10 +34,11 @@ class QuestionsPage extends PureComponent {
 }
 
 const mapStateToProps = (store) => {
+    const {questions} = store;
     return {
-        questions: store.questions.questions,
-        loading: store.questions.questions_loaded_from_api_in_process,
-        errorFetching: store.questions.questions_loaded_from_api_error
+        questions: questions.questions,
+        loading: questions.questions_loaded_from_api_in_process,
+        errorFetching: questions.questions_loaded_from_api_error
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

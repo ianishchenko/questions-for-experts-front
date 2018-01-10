@@ -1,11 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import LoginForm from './LoginForm';
 import {
     userActions,
 } from 'Actions/user';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-class LoginPage extends React.Component {
+class LoginPage extends Component {
+
+    static propTypes = {
+        login: PropTypes.func
+    };
+
     login = (data) => {
         this.props.login(data);
     };

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ExpertPreview from './ExpertPreview';
+import PropTypes from 'prop-types';
 
-class ExpertsList extends React.Component {
+export default class ExpertsList extends Component {
+
+    static propTypes = {
+        experts: PropTypes.array
+    };
+
     render() {
+        const {experts} = this.props;
         return (
             <div>
-                {this.props.experts.map(expert => {
+                {experts.map(expert => {
                     return <ExpertPreview key={expert.id} expert={expert}/>
                 })}
             </div>
         );
     }
 }
-
-export default ExpertsList;

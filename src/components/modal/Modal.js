@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Modal from 'react-modal';
 import './index.css';
+import PropTypes from 'prop-types';
 
-class ModalComponent extends React.Component {
+export default class ModalComponent extends Component {
+
+    static propTypes = {
+        handleModalCloseRequest: PropTypes.func,
+        handleModalConfirmRequest: PropTypes.func,
+        isOpen: PropTypes.bool,
+        children: PropTypes.element
+    };
+
     render() {
         return (
             <Modal
@@ -30,5 +39,3 @@ class ModalComponent extends React.Component {
         );
     }
 }
-
-export default ModalComponent;

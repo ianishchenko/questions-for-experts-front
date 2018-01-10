@@ -8,7 +8,7 @@ import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 export default class Home extends PureComponent {
     render() {
         return (
-            <div className="home-page container">
+            <div className="page container">
                 <div className="row">
                     <div className="col-md-12">
                         <div className="text-center">

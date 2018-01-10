@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link, Switch} from 'react-router-dom';
 import Routes from './../../routes';
 import {alertActions} from 'Actions/alert';
 import {userActions} from 'Actions/user';
-import {loading} from 'Actions/loading';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import {history} from '../../store';
@@ -11,8 +10,16 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/flip.css';
 import {userService} from "Services/userService";
+import PropTypes from 'prop-types';
 
-class App extends React.Component {
+class App extends Component {
+
+    static propTypes = {
+        clear: PropTypes.func,
+        setUser: PropTypes.func,
+        alert: PropTypes.object
+    };
+
     shouldComponentUpdate(nextProps) {
         return nextProps.alert != this.props.alert;
     }
@@ -23,7 +30,7 @@ class App extends React.Component {
             this.props.setUser(userService.getCurrentUser());
             isAuth = true;
         }
-        const {alert, loading} = this.props;
+        const {alert} = this.props;
         if (Object.keys(alert).length !== 0) {
             Alert[alert.type](alert.message, {
                 position: 'bottom-right',
@@ -39,8 +46,10 @@ class App extends React.Component {
                     <div className="container-fluid">
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav">
-                                <li key="home"><Link key="home" to="/">Home</Link></li>
-                                <li key="questions"><Link key="questions" to="/questions">My questions</Link></li>
+                                {isAuth && ([
+                                    <li key="home"><Link key="home" to="/">Home</Link></li>,
+                                    <li key="questions"><Link key="questions" to="/questions">My questions</Link></li>
+                                ])}
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                                 {isAuth ? (
@@ -71,7 +80,6 @@ class App extends React.Component {
                         </div>
                     </div>
                 </header>
-                {loading.in_progress === true && <div className="loading">Loading...</div>}
                 <main>
                     <Switch>
                         {Routes}
@@ -107,17 +115,15 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (store) => {
-    const {alert, loading} = store;
+    const {alert} = store;
     return {
-        alert,
-        loading
+        alert
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         clear: alertActions.clear.bind(null, dispatch),
-        setUser: userActions.setUser.bind(null, dispatch),
-
+        setUser: userActions.setUser.bind(null, dispatch)
     }
 };
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

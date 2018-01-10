@@ -17,7 +17,8 @@ export default (state = initialState, action) => {
         case Type.CATEGORIES_LOADED_FROM_API_SUCCESS:
             return {
                 ...state,
-                categories: action.payload
+                categories: action.payload,
+                categories_loaded_from_api_in_process: false
             };
 
         case Type.CATEGORIES_LOADED_FROM_API_ERROR:

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -6,7 +6,7 @@ export default () => (WrappedComponent) => {
     @connect(store => ({
         isLoggedIn: store.user.isLoggedIn,
     }))
-    class AuthenticatedPage extends PureComponent {
+    class AuthenticatedPage extends Component {
 
         static propTypes = {
             location: PropTypes.any,

@@ -1,6 +1,12 @@
-import React from "react";
+import React, {Component} from "react";
+import PropTypes from 'prop-types';
 
-export default class QuestionForm extends React.Component {
+export default class QuestionForm extends Component {
+
+    static propTypes = {
+        handleFormData: PropTypes.func
+    };
+
     state = {
         question: ''
     };

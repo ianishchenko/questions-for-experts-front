@@ -24,6 +24,13 @@ p a {
     text-decoration: underline;
 }
 
+.page {
+    color: black;
+    background-color: #FFFFFF;
+    opacity: 0.7;
+}
+
+
 h1,
 h2,
 h3,
@@ -606,4 +613,10 @@ html {
         -o-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

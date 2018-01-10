@@ -1,11 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import RegistrationForm from './RegistrationForm';
 import {
     userActions,
 } from 'Actions/user';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-class RegisterPage extends React.Component {
+class RegisterPage extends Component {
+
+    static propTypes = {
+        register: PropTypes.func
+    };
+
     sendRegistrationData = (data) => {
         this.props.register(data);
     };

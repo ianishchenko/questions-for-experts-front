@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import {
     expertActions,
 } from 'Actions/expert';
@@ -7,43 +7,52 @@ import ExpertAvatar from './ExpertAvatar';
 import {API_HOST_FILE_URL} from '../../config';
 import NewQuestion from 'Components/question/NewQuestion';
 import authenticatedPageDecorator from 'Decorators/authenticatedPage';
+import PropTypes from 'prop-types';
 
 @authenticatedPageDecorator()
-class ExpertPage extends React.Component {
+class ExpertPage extends PureComponent {
+
+    static propTypes = {
+        loadExpertAction: PropTypes.func,
+        expert: PropTypes.object.isRequired,
+        loading: PropTypes.bool,
+        errorFetching: PropTypes.bool
+    };
+
     componentWillMount() {
         this.props.loadExpertAction(this.props.match.params.expert_id);
     }
 
-    shouldComponentUpdate(nextProps) {
-        return nextProps.expert.id !== null;
-    }
-
     render() {
         let avatarUrl = false;
-
-        if(this.props.expert.id != null){
-            this.props.expert.attachments.map((attachment) => {
-                if(attachment.is_avatar){
-                    avatarUrl = API_HOST_FILE_URL+attachment.url_path;
+        const {expert: {id, first_name, last_name, category_id, small_description, attachments}, loading, match} = this.props;
+        if (id != null) {
+            attachments.map((attachment) => {
+                if (attachment.is_avatar) {
+                    avatarUrl = API_HOST_FILE_URL + attachment.url_path;
                 }
+                return true;
             });
         }
         return (
             <div className="text-center">
-                {avatarUrl?<ExpertAvatar url={avatarUrl}/>:''}
-                <div>{this.props.expert.first_name} {this.props.expert.last_name}</div>
-                <div className="expert-description">{this.props.expert.small_description}</div>
-                <NewQuestion expert_id={this.props.match.params.expert_id} category={this.props.expert.category_id}/>
+                {loading === true && <div className="loading">Loading...</div>}
+                {avatarUrl ? <ExpertAvatar url={avatarUrl}/> : ''}
+                <div>{first_name} {last_name}</div>
+                <div className="expert-description">{small_description}</div>
+                <NewQuestion expert_id={parseInt(match.params.expert_id)} category={category_id}/>
             </div>
         );
     }
 }
 
 const mapStateToProps = (store) => {
+    const {expert} = store;
+
     return {
-        expert: store.expert.expert,
-        loading: store.expert.expert_loaded_from_api_in_process,
-        errorFetching: store.expert.expert_loaded_from_api_error
+        expert: expert.expert,
+        loading: expert.expert_loaded_from_api_in_process,
+        errorFetching: expert.expert_loaded_from_api_error
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {
