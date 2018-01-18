@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class AnswerForm extends PureComponent {
 
     static propTypes = {
-        submitAnswer: PropTypes.func.isRequire
+        submitAnswer: PropTypes.func
     };
 
     state = {

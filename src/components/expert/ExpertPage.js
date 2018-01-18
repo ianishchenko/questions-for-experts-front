@@ -4,7 +4,7 @@ import {
 } from 'Actions/expert';
 import {connect} from 'react-redux';
 import ExpertAvatar from './ExpertAvatar';
-import {API_HOST_FILE_URL} from '../../config';
+import {API_HOST_FILE_URL} from '../../constants';
 import NewQuestion from 'Components/question/NewQuestion';
 import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 import PropTypes from 'prop-types';

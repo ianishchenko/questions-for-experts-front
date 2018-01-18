@@ -10,6 +10,7 @@ import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/flip.css';
 import {userService} from "Services/userService";
+import Chat from 'Components/chat/Chatroom';
 import PropTypes from 'prop-types';
 
 class App extends Component {
@@ -26,8 +27,10 @@ class App extends Component {
 
     render() {
         let isAuth = false;
+        let user = null;
         if (userService.getIsAuth()) {
-            this.props.setUser(userService.getCurrentUser());
+            user = userService.getCurrentUser();
+            this.props.setUser(user);
             isAuth = true;
         }
         const {alert} = this.props;
@@ -40,6 +43,7 @@ class App extends Component {
         history.listen((location, action) => {
             this.props.clear();
         });
+
         return (
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -85,19 +89,14 @@ class App extends Component {
                         {Routes}
                     </Switch>
                 </main>
-
+                {isAuth && <Chat user={user}/>}
                 <footer>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                                 <ul className="list-inline text-center">
                                     <li>
-                                        <a href="https://github.com/ITwinkle/questions">
-                                <span className="fa-stack fa-lg">
-                                    <i className="fa fa-circle fa-stack-2x"/>
-                                    <i className="fa fa-github fa-stack-1x fa-inverse"/>
-                                </span>
-                                        </a>
+                                        <a href="https://github.com/ITwinkle/questions"/>
                                     </li>
                                 </ul>
                                 <p className="copyright text-muted">Copyright &copy; Questions 2017</p>

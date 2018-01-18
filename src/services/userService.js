@@ -1,4 +1,4 @@
-import {REGISTER_URL, LOGIN_URL, LOGOUT_URL} from '../config';
+import {REGISTER_URL, LOGIN_URL, LOGOUT_URL} from '../constants';
 
 export const userService = {
     login,

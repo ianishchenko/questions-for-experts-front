@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API_HOST_URL as API_HOST}  from '../config';
+import {API_HOST_URL as API_HOST}  from '../constants';
 import token from './auth-header';
 import {history} from '../store';
 

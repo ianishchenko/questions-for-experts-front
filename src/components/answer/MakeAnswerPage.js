@@ -17,7 +17,7 @@ class MakeAnswerPage extends Component {
     static propTypes = {
         loadQuestion: PropTypes.func,
         successAnswer: PropTypes.func,
-        questions: PropTypes.array,
+        question: PropTypes.any,
         loading: PropTypes.bool,
         errorFetching: PropTypes.bool
     };
@@ -28,9 +28,10 @@ class MakeAnswerPage extends Component {
 
     submitAnswer = (data) => {
         const axios = new AxiosHelper();
+
         const submittedData = {
             text: data,
-            question_id: this.props.questions.id
+            question_id: this.props.question.id
         };
         return axios.setUrl(`/answers`).setMethod('POST').setData(submittedData)
             .request()
@@ -68,7 +69,7 @@ const mapStateToProps = (store) => {
     const {questions} = store;
 
     return {
-        questions: questions.questions,
+        question: questions.questions,
         loading: questions.questions_loaded_from_api_in_process,
         errorFetching: questions.questions_loaded_from_api_error,
 

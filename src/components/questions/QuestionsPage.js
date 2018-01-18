@@ -13,7 +13,7 @@ class QuestionsPage extends PureComponent {
 
     static propTypes = {
         loadQuestions: PropTypes.func,
-        questions: PropTypes.array,
+        questions: PropTypes.any,
         loading: PropTypes.bool,
         errorFetching: PropTypes.bool
     };

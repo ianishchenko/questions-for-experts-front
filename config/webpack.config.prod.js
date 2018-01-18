@@ -102,6 +102,7 @@ module.exports = {
       'Helpers': path.resolve(__dirname, '../src/helpers/'),
       'Middleware': path.resolve(__dirname, '../src/middleware/'),
       'Services': path.resolve(__dirname, '../src/services/'),
+      'Config': path.resolve(__dirname, '../src/constants.js')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
