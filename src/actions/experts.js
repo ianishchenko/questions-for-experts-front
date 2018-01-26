@@ -1,9 +1,9 @@
 import AxiosHelper from '../helpers/AxiosHelper';
 
 let Type = {
-    EXPERTS_LOADED_FROM_API_IN_PROCESS: 'EXPERTS_LOADED_FROM_API_IN_PROCESS',
-    EXPERTS_LOADED_FROM_API_SUCCESS: 'EXPERTS_LOADED_FROM_API_SUCCESS',
-    EXPERTS_LOADED_FROM_API_ERROR: 'EXPERTS_LOADED_FROM_API_ERROR'
+    EXPERTS_LOADED_IN_PROCESS: 'EXPERTS_LOADED_IN_PROCESS',
+    EXPERTS_LOADED_SUCCESS: 'EXPERTS_LOADED_SUCCESS',
+    EXPERTS_LOADED_ERROR: 'EXPERTS_LOADED_ERROR'
 };
 
 export default Type;
@@ -15,7 +15,7 @@ export const expertsActions = {
 function loadExpertsAction(dispatch, category_id) {
     return ((dispatch) => {
         dispatch({
-            type: Type.EXPERTS_LOADED_FROM_API_IN_PROCESS
+            type: Type.EXPERTS_LOADED_IN_PROCESS
         });
         const axios = new AxiosHelper();
         return axios.setUrl(`/categories/${category_id}/experts`)
@@ -23,12 +23,12 @@ function loadExpertsAction(dispatch, category_id) {
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.EXPERTS_LOADED_FROM_API_SUCCESS,
+                        type: Type.EXPERTS_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.EXPERTS_LOADED_FROM_API_ERROR
+                type: Type.EXPERTS_LOADED_ERROR
             }))
     })(dispatch)
 }

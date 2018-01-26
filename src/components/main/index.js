@@ -34,7 +34,7 @@ class App extends Component {
             isAuth = true;
         }
         const {alert} = this.props;
-        if (Object.keys(alert).length !== 0) {
+        if (alert.type) {
             Alert[alert.type](alert.message, {
                 position: 'bottom-right',
                 effect: 'flip'

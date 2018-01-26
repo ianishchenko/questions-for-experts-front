@@ -37,8 +37,8 @@ const mapStateToProps = (store) => {
     const {questions} = store;
     return {
         questions: questions.questions,
-        loading: questions.questions_loaded_from_api_in_process,
-        errorFetching: questions.questions_loaded_from_api_error
+        loading: questions.questions_loaded_in_process,
+        errorFetching: questions.questions_loaded_error
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

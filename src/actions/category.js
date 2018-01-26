@@ -1,9 +1,9 @@
 import AxiosHelper from '../helpers/AxiosHelper';
 
 const Type = {
-    CATEGORIES_LOADED_FROM_API_IN_PROCESS: 'CATEGORIES_LOADED_FROM_API_IN_PROCESS',
-    CATEGORIES_LOADED_FROM_API_SUCCESS: 'CATEGORIES_LOADED_FROM_API_SUCCESS',
-    CATEGORIES_LOADED_FROM_API_ERROR: 'CATEGORIES_LOADED_FROM_API_ERROR'
+    CATEGORIES_LOADED_IN_PROCESS: 'CATEGORIES_LOADED_IN_PROCESS',
+    CATEGORIES_LOADED_SUCCESS: 'CATEGORIES_LOADED_SUCCESS',
+    CATEGORIES_LOADED_ERROR: 'CATEGORIES_LOADED_ERROR'
 };
 
 export default Type;
@@ -15,7 +15,7 @@ export const categoryActions = {
 function loadCategoriesAction(dispatch){
     return ((dispatch) => {
         dispatch({
-            type: Type.CATEGORIES_LOADED_FROM_API_IN_PROCESS
+            type: Type.CATEGORIES_LOADED_IN_PROCESS
         });
 
         const axios = new AxiosHelper();
@@ -24,12 +24,12 @@ function loadCategoriesAction(dispatch){
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.CATEGORIES_LOADED_FROM_API_SUCCESS,
+                        type: Type.CATEGORIES_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.CATEGORIES_LOADED_FROM_API_ERROR
+                type: Type.CATEGORIES_LOADED_ERROR
             }))
     })(dispatch);
 }

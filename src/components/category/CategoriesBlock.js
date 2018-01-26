@@ -36,7 +36,7 @@ const mapStateToProps = (store) => {
     const {category} = store;
     return {
         categories: category.categories,
-        loading: category.categories_loaded_from_api_in_process
+        loading: category.categories_loaded_in_process
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

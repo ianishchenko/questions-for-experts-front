@@ -3,9 +3,9 @@ import AxiosHelper from '../helpers/AxiosHelper';
 
 let Type = {
     ADDED_NEW_QUESTION: 'ADDED_NEW_QUESTION',
-    QUESTIONS_LOADED_FROM_API_IN_PROCESS: 'QUESTIONS_LOADED_FROM_API_IN_PROCESS',
-    QUESTIONS_LOADED_FROM_API_SUCCESS: 'QUESTIONS_LOADED_FROM_API_SUCCESS',
-    QUESTIONS_LOADED_FROM_API_ERROR: 'QUESTIONS_LOADED_FROM_API_ERROR',
+    QUESTIONS_LOADED_IN_PROCESS: 'QUESTIONS_LOADED_IN_PROCESS',
+    QUESTIONS_LOADED_SUCCESS: 'QUESTIONS_LOADED_SUCCESS',
+    QUESTIONS_LOADED_ERROR: 'QUESTIONS_LOADED_ERROR',
     ANSWER_CHANGE_IN_PROCESS: 'ANSWER_CHANGE_IN_PROCESS',
     ANSWER_CHANGE_SUCCESS: 'ANSWER_CHANGE_SUCCESS',
     ANSWER_CHANGE_ERROR: 'ANSWER_CHANGE_ERROR'
@@ -33,7 +33,7 @@ function addNewQuestionAction(dispatch, question) {
 function loadUserQuestionsAction(dispatch, userId) {
     return ((dispatch) => {
         dispatch({
-            type: Type.QUESTIONS_LOADED_FROM_API_IN_PROCESS
+            type: Type.QUESTIONS_LOADED_IN_PROCESS
         });
         const axios = new AxiosHelper();
         return axios.setUrl(`/users/${userId}/questions`)
@@ -41,12 +41,12 @@ function loadUserQuestionsAction(dispatch, userId) {
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.QUESTIONS_LOADED_FROM_API_SUCCESS,
+                        type: Type.QUESTIONS_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.QUESTIONS_LOADED_FROM_API_ERROR
+                type: Type.QUESTIONS_LOADED_ERROR
             }));
     })(dispatch);
 }
@@ -54,7 +54,7 @@ function loadUserQuestionsAction(dispatch, userId) {
 function loadUserQuestionByHashAction(dispatch, hash) {
     return ((dispatch) => {
         dispatch({
-            type: Type.QUESTIONS_LOADED_FROM_API_IN_PROCESS
+            type: Type.QUESTIONS_LOADED_IN_PROCESS
         });
         const axios = new AxiosHelper();
         return axios.setUrl(`/answers/${hash}`)
@@ -62,12 +62,12 @@ function loadUserQuestionByHashAction(dispatch, hash) {
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.QUESTIONS_LOADED_FROM_API_SUCCESS,
+                        type: Type.QUESTIONS_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.QUESTIONS_LOADED_FROM_API_ERROR
+                type: Type.QUESTIONS_LOADED_ERROR
             }))
     })(dispatch);
 }

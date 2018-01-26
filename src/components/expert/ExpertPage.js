@@ -51,8 +51,8 @@ const mapStateToProps = (store) => {
 
     return {
         expert: expert.expert,
-        loading: expert.expert_loaded_from_api_in_process,
-        errorFetching: expert.expert_loaded_from_api_error
+        loading: expert.expert_loaded_in_process,
+        errorFetching: expert.expert_loaded_error
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

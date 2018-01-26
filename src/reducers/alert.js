@@ -1,17 +1,23 @@
-import { Types } from 'Actions/alert';
+import Immutable from 'seamless-immutable';
+import {Types} from 'Actions/alert';
 
-export default function alert(state = {}, action) {
+const InitialState = Immutable({
+    type: '',
+    message: ''
+});
+
+export default function alert(state = InitialState, action) {
     switch (action.type) {
         case Types.SUCCESS:
-            return {
+            return state.merge({
                 type: 'success',
                 message: action.message
-            };
+            });
         case Types.ERROR:
-            return {
+            return state.merge({
                 type: 'error',
                 message: action.message
-            };
+            });
         case Types.CLEAR:
             return {};
         default:
