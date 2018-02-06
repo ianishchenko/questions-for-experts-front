@@ -1,5 +1,5 @@
 import { alertActions } from './alert';
-import AxiosHelper from '../helpers/AxiosHelper';
+import AxiosHelper from 'Helpers/AxiosHelper';
 
 let Type = {
     ADDED_NEW_QUESTION: 'ADDED_NEW_QUESTION',

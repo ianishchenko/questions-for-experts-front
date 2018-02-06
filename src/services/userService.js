@@ -1,5 +1,3 @@
-import {REGISTER_URL, LOGIN_URL, LOGOUT_URL} from '../constants';
-
 export const userService = {
     login,
     logout,
@@ -15,7 +13,7 @@ function login(email, password) {
         body: JSON.stringify({ email, password })
     };
 
-    return fetch(LOGIN_URL, requestOptions)
+    return fetch(`${process.env.REACT_APP_LOGIN_URL}`, requestOptions)
         .then(response => {
             if(response.status === 401){
                 return Promise.reject(false)
@@ -33,7 +31,7 @@ function login(email, password) {
 
 function logout() {
     localStorage.removeItem('user');
-    return fetch(LOGOUT_URL);
+    return fetch(`${process.env.REACT_APP_LOGOUT_URL}`);
 }
 
 function register(user) {
@@ -43,7 +41,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(REGISTER_URL, requestOptions);
+    return fetch(`${process.env.REACT_APP_REGISTER_URL}`, requestOptions);
 }
 
 function getCurrentUser() {

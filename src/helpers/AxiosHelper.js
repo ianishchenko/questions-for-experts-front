@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {API_HOST_URL as API_HOST}  from '../constants';
 import token from './auth-header';
 import {history} from '../store';
 
@@ -154,7 +153,7 @@ class Axios {
      */
     request(resolve, reject) {
         let self = this;
-        let url = this._isCallApi ? API_HOST + self._url: self._url;
+        let url = this._isCallApi ? `${process.env.REACT_APP_API_HOST_URL}` + self._url: self._url;
         return new Promise((resolve, reject) => {
             axios({
                 url: url,

@@ -11,6 +11,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const Dotenv = require('dotenv-webpack');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -105,6 +106,10 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+      new Dotenv({
+          path: './.env', // Path to .env file (this is the default)
+          safe: true // load .env.example (defaults to "false" which does not use dotenv-safe)
+      })
     ],
   },
   module: {

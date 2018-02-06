@@ -4,7 +4,6 @@ import {
 } from 'Actions/expert';
 import {connect} from 'react-redux';
 import ExpertAvatar from './ExpertAvatar';
-import {API_HOST_FILE_URL} from '../../constants';
 import NewQuestion from 'Components/question/NewQuestion';
 import authenticatedPageDecorator from 'Decorators/authenticatedPage';
 import PropTypes from 'prop-types';
@@ -29,7 +28,7 @@ class ExpertPage extends PureComponent {
         if (id != null) {
             attachments.map((attachment) => {
                 if (attachment.is_avatar) {
-                    avatarUrl = API_HOST_FILE_URL + attachment.url_path;
+                    avatarUrl = `${process.env.REACT_APP_API_HOST_FILE_URL}${attachment.url_path}`;
                 }
                 return true;
             });

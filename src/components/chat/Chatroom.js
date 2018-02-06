@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
-import {SOCKET_URL, SOCKET_EVENTS} from 'Config';
+import {SOCKET_EVENTS} from 'Config';
 import './index.css';
 import Message from './Message.js';
 
@@ -30,7 +30,7 @@ export default class Chatroom extends Component {
 
     scrollToBot = () => {
         const element = ReactDOM.findDOMNode(this.refs.messages);
-        if(element){
+        if (element) {
             element.scrollTop = element.scrollHeight;
         }
     };
@@ -53,7 +53,8 @@ export default class Chatroom extends Component {
     };
 
     initSocket = () => {
-        const socket = io(SOCKET_URL,
+        const socket = io(
+            `${process.env.REACT_APP_SOCKET_URL}`,
             {
                 transports: ['websocket']
             }
@@ -62,9 +63,9 @@ export default class Chatroom extends Component {
             socket.io.opts.transports = ['polling', 'websocket'];
         });
         socket.on(SOCKET_EVENTS.MESSAGE_RECEIVED, (message) => {
-           this.setState({
-               messages: this.state.messages.concat([message])
-           });
+            this.setState({
+                messages: this.state.messages.concat([message])
+            });
         });
         this.setState({socket});
     };
@@ -85,7 +86,7 @@ export default class Chatroom extends Component {
     render() {
         const {user} = this.props;
         const {messages, isShowChat} = this.state;
-        if(!isShowChat){
+        if (!isShowChat) {
             return <button className="btn btn-info" id="chat-button" onClick={this.toggleChat}>
                 <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/5982-200.png"/>
             </button>
