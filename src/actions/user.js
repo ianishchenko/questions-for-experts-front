@@ -1,16 +1,17 @@
-import { userService } from '../services/userService';
-import { alertActions } from './alert';
-import { history } from '../store';
+import {userService} from '../services/userService';
+import {alertActions} from './alert';
+import {history} from '../store';
+import {createTypes} from 'reduxsauce';
 
-export  const Types = {
-    LOGIN_REQUEST: 'LOGIN_REQUEST',
-    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-    LOGIN_FAILURE: 'LOGIN_FAILURE',
-    LOGOUT: 'LOGOUT',
-    REGISTER_REQUEST: 'REGISTER_REQUEST',
-    REGISTER_SUCCESS: 'REGISTER_SUCCESS',
-    REGISTER_FAILURE: 'REGISTER_FAILURE'
-};
+export const Types = createTypes(`
+  LOGIN_REQUEST
+  LOGIN_SUCCESS
+  LOGIN_FAILURE
+  LOGOUT
+  REGISTER_REQUEST
+  REGISTER_SUCCESS
+  REGISTER_FAILURE
+`);
 
 export const userActions = {
     login,
@@ -21,7 +22,7 @@ export const userActions = {
 
 function login(dispatch, {email, password}) {
     return (dispatch => {
-        dispatch(request({ email }));
+        dispatch(request({email}));
 
         userService.login(email, password)
             .then(
@@ -36,14 +37,22 @@ function login(dispatch, {email, password}) {
             );
     })(dispatch);
 
-    function request(user) { return { type: Types.LOGIN_REQUEST, user } }
-    function success(user) { return { type: Types.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: Types.LOGIN_FAILURE, error } }
+    function request(user) {
+        return {type: Types.LOGIN_REQUEST, user}
+    }
+
+    function success(user) {
+        return {type: Types.LOGIN_SUCCESS, user}
+    }
+
+    function failure(error) {
+        return {type: Types.LOGIN_FAILURE, error}
+    }
 }
 
 function logout() {
     userService.logout();
-    return { type: Types.LOGOUT };
+    return {type: Types.LOGOUT};
 }
 
 function register(dispatch, user) {
@@ -64,9 +73,17 @@ function register(dispatch, user) {
             );
     })(dispatch);
 
-    function request(user) { return { type: Types.REGISTER_REQUEST, user } }
-    function success(user) { return { type: Types.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: Types.REGISTER_FAILURE, error } }
+    function request(user) {
+        return {type: Types.REGISTER_REQUEST, user}
+    }
+
+    function success(user) {
+        return {type: Types.REGISTER_SUCCESS, user}
+    }
+
+    function failure(error) {
+        return {type: Types.REGISTER_FAILURE, error}
+    }
 }
 
 function setUser(dispatch, user) {
@@ -74,5 +91,7 @@ function setUser(dispatch, user) {
         dispatch(success(user));
     })(dispatch);
 
-    function success(user) { return { type: Types.LOGIN_SUCCESS, user } }
+    function success(user) {
+        return {type: Types.LOGIN_SUCCESS, user}
+    }
 }

@@ -22,7 +22,7 @@ class App extends Component {
     };
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.alert != this.props.alert;
+        return nextProps.alert != this.props.alert || nextProps.location.pathname !== this.props.location.pathname;
     }
 
     render() {

@@ -1,21 +1,20 @@
-import AxiosHelper from '../helpers/AxiosHelper';
+import AxiosHelper from 'Helpers/AxiosHelper';
+import {createTypes} from 'reduxsauce';
 
-const Type = {
-    CATEGORIES_LOADED_IN_PROCESS: 'CATEGORIES_LOADED_IN_PROCESS',
-    CATEGORIES_LOADED_SUCCESS: 'CATEGORIES_LOADED_SUCCESS',
-    CATEGORIES_LOADED_ERROR: 'CATEGORIES_LOADED_ERROR'
-};
-
-export default Type;
+export const Types = createTypes(`
+  CATEGORIES_LOADED_IN_PROCESS
+  CATEGORIES_LOADED_SUCCESS
+  CATEGORIES_LOADED_ERROR
+`);
 
 export const categoryActions = {
     loadCategoriesAction
 };
 
-function loadCategoriesAction(dispatch){
+function loadCategoriesAction(dispatch) {
     return ((dispatch) => {
         dispatch({
-            type: Type.CATEGORIES_LOADED_IN_PROCESS
+            type: Types.CATEGORIES_LOADED_IN_PROCESS
         });
 
         const axios = new AxiosHelper();
@@ -24,12 +23,12 @@ function loadCategoriesAction(dispatch){
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.CATEGORIES_LOADED_SUCCESS,
+                        type: Types.CATEGORIES_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.CATEGORIES_LOADED_ERROR
+                type: Types.CATEGORIES_LOADED_ERROR
             }))
     })(dispatch);
 }

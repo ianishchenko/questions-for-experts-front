@@ -1,26 +1,34 @@
 import Immutable from 'seamless-immutable';
 import {Types} from 'Actions/alert';
+import {createReducer} from 'reduxsauce';
 
-const InitialState = Immutable({
+const INITIAL_STATE = Immutable({
     type: '',
     message: ''
 });
 
-export default function alert(state = InitialState, action) {
-    switch (action.type) {
-        case Types.SUCCESS:
-            return state.merge({
-                type: 'success',
-                message: action.message
-            });
-        case Types.ERROR:
-            return state.merge({
-                type: 'error',
-                message: action.message
-            });
-        case Types.CLEAR:
-            return {};
-        default:
-            return state;
-    }
-}
+const success = (state = INITIAL_STATE, action) => {
+    return state.merge({
+        type: 'success',
+        message: action.message
+    });
+};
+
+const error = (state = INITIAL_STATE, action) => {
+    return state.merge({
+        type: 'error',
+        message: action.message
+    });
+};
+
+const clear = (state = INITIAL_STATE, action) => {
+    return INITIAL_STATE;
+};
+
+const HANDLERS = {
+    [Types.SUCCESS]: success,
+    [Types.ERROR]: error,
+    [Types.CLEAR]: clear
+};
+
+export default createReducer(INITIAL_STATE, HANDLERS);

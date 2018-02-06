@@ -1,7 +1,8 @@
 import Immutable from 'seamless-immutable';
-import Type from 'Actions/expert';
+import {Types} from 'Actions/expert';
+import {createReducer} from 'reduxsauce';
 
-const initialState = Immutable({
+const INITIAL_STATE = Immutable({
     expert: {
         id: null,
         first_name: null,
@@ -15,27 +16,32 @@ const initialState = Immutable({
     expert_loaded_error: false,
 });
 
-export default (state = initialState, action) => {
-    switch (action.type) {
-        case Type.EXPERT_LOADED_IN_PROCESS:
-            return state.merge({
-                expert_loaded_in_process: true,
-                expert_loaded_error: false
-            });
+const success = (state = INITIAL_STATE, action) => {
+    return state.merge({
+        expert: state.expert.merge(action.payload),
+        expert_loaded_error: false,
+        expert_loaded_in_process: false
+    });
+};
 
-        case Type.EXPERT_LOADED_SUCCESS:
-            return state.merge({
-                expert: state.expert.merge(action.payload),
-                expert_loaded_error: false,
-                expert_loaded_in_process: false
-            });
+const error = (state = INITIAL_STATE, action) => {
+    return state.merge({
+        expert_loaded_error: true,
+        expert_loaded_in_process: false
+    });
+};
 
-        case Type.EXPERT_LOADED_ERROR:
-            return state.merge({
-                expert_loaded_error: true,
-                expert_loaded_in_process: false
-            });
-        default:
-            return state;
-    }
-}
+const inProgress = (state = INITIAL_STATE, action) => {
+    return state.merge({
+        expert_loaded_in_process: true,
+        expert_loaded_error: false
+    });
+};
+
+const HANDLERS = {
+    [Types.EXPERT_LOADED_SUCCESS]: success,
+    [Types.EXPERT_LOADED_ERROR]: error,
+    [Types.EXPERT_LOADED_IN_PROCESS]: inProgress
+};
+
+export default createReducer(INITIAL_STATE, HANDLERS);

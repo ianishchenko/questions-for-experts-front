@@ -1,17 +1,16 @@
-import { alertActions } from './alert';
+import {alertActions} from 'Actions/alert';
 import AxiosHelper from 'Helpers/AxiosHelper';
+import {createTypes} from 'reduxsauce';
 
-let Type = {
-    ADDED_NEW_QUESTION: 'ADDED_NEW_QUESTION',
-    QUESTIONS_LOADED_IN_PROCESS: 'QUESTIONS_LOADED_IN_PROCESS',
-    QUESTIONS_LOADED_SUCCESS: 'QUESTIONS_LOADED_SUCCESS',
-    QUESTIONS_LOADED_ERROR: 'QUESTIONS_LOADED_ERROR',
-    ANSWER_CHANGE_IN_PROCESS: 'ANSWER_CHANGE_IN_PROCESS',
-    ANSWER_CHANGE_SUCCESS: 'ANSWER_CHANGE_SUCCESS',
-    ANSWER_CHANGE_ERROR: 'ANSWER_CHANGE_ERROR'
-};
-
-export default Type;
+export const Types = createTypes(`
+  ADDED_NEW_QUESTION
+  QUESTIONS_LOADED_IN_PROCESS
+  QUESTIONS_LOADED_SUCCESS
+  QUESTIONS_LOADED_ERROR
+  ANSWER_CHANGE_IN_PROCESS
+  ANSWER_CHANGE_SUCCESS
+  ANSWER_CHANGE_ERROR
+`);
 
 export const questionActions = {
     changeAnswerAction,
@@ -23,7 +22,7 @@ export const questionActions = {
 function addNewQuestionAction(dispatch, question) {
     return (dispatch => {
         dispatch({
-            type: Type.ADDED_NEW_QUESTION,
+            type: Types.ADDED_NEW_QUESTION,
             question: question
         });
         alertActions.success(dispatch, 'Question was added successfully');
@@ -33,7 +32,7 @@ function addNewQuestionAction(dispatch, question) {
 function loadUserQuestionsAction(dispatch, userId) {
     return ((dispatch) => {
         dispatch({
-            type: Type.QUESTIONS_LOADED_IN_PROCESS
+            type: Types.QUESTIONS_LOADED_IN_PROCESS
         });
         const axios = new AxiosHelper();
         return axios.setUrl(`/users/${userId}/questions`)
@@ -41,12 +40,12 @@ function loadUserQuestionsAction(dispatch, userId) {
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.QUESTIONS_LOADED_SUCCESS,
+                        type: Types.QUESTIONS_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.QUESTIONS_LOADED_ERROR
+                type: Types.QUESTIONS_LOADED_ERROR
             }));
     })(dispatch);
 }
@@ -54,7 +53,7 @@ function loadUserQuestionsAction(dispatch, userId) {
 function loadUserQuestionByHashAction(dispatch, hash) {
     return ((dispatch) => {
         dispatch({
-            type: Type.QUESTIONS_LOADED_IN_PROCESS
+            type: Types.QUESTIONS_LOADED_IN_PROCESS
         });
         const axios = new AxiosHelper();
         return axios.setUrl(`/answers/${hash}`)
@@ -62,20 +61,20 @@ function loadUserQuestionByHashAction(dispatch, hash) {
             .then((result) => {
                 return dispatch(
                     {
-                        type: Type.QUESTIONS_LOADED_SUCCESS,
+                        type: Types.QUESTIONS_LOADED_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.QUESTIONS_LOADED_ERROR
+                type: Types.QUESTIONS_LOADED_ERROR
             }))
     })(dispatch);
 }
 
-function changeAnswerAction(dispatch, answer){
+function changeAnswerAction(dispatch, answer) {
     return ((dispatch) => {
         dispatch({
-            type: Type.ANSWER_CHANGE_IN_PROCESS
+            type: Types.ANSWER_CHANGE_IN_PROCESS
         });
 
         const axios = new AxiosHelper();
@@ -85,12 +84,12 @@ function changeAnswerAction(dispatch, answer){
                 alertActions.success(dispatch, 'Your score was added!');
                 return dispatch(
                     {
-                        type: Type.ANSWER_CHANGE_SUCCESS,
+                        type: Types.ANSWER_CHANGE_SUCCESS,
                         payload: result.data
                     }
                 );
             }, (err) => dispatch({
-                type: Type.ANSWER_CHANGE_ERROR
+                type: Types.ANSWER_CHANGE_ERROR
             }));
     })(dispatch);
 }

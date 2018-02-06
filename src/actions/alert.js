@@ -1,8 +1,10 @@
-export const Types = {
-    SUCCESS: 'SUCCESS',
-    ERROR: 'ERROR',
-    CLEAR: 'CLEAR'
-};
+import { createTypes } from 'reduxsauce';
+
+export const Types = createTypes(`
+  SUCCESS
+  ERROR
+  CLEAR
+`);
 
 export const alertActions = {
     success,
